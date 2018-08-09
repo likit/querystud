@@ -2,11 +2,16 @@ from __future__ import with_statement
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 from logging.config import fileConfig
+import os
+from simplelis.models import Base
+
+POSTGRES_PASSWORD = os.environ.get('POSTGRES_PASSWORD')
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
-config.set_main_option('sqlalchemy.url', '')
+config.set_main_option('sqlalchemy.url', 'postgres+psycopg2://postgres:{}@pg/simplelis'
+                       .format(POSTGRES_PASSWORD))
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -16,7 +21,7 @@ fileConfig(config.config_file_name)
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = None
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
