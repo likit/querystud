@@ -8,3 +8,13 @@ services:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     ports:
       - "5435:5432"
+  web:
+    build: .
+    image: python:3.6.5
+    command: python -m http.server 9000
+    volumes:
+      - .:/querystud
+    environment:
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    ports:
+      - "9000:9000"
