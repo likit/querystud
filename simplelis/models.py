@@ -6,8 +6,6 @@ from sqlalchemy import create_engine
 
 POSTGRES_PASSWORD = os.environ.get('POSTGRES_PASSWORD')
 Base = declarative_base()
-engine = create_engine('postgresql+psycopg2://postgres:{}@localhost:5435/simplelis'
-                       .format(POSTGRES_PASSWORD))
 
 class Patient(Base):
     __tablename__ = 'patients'
@@ -17,5 +15,3 @@ class Patient(Base):
     email = Column('email', String(128), nullable=True)
     gender = Column('gender', String(8), nullable=False)
     birthdate = Column('birthdate', Date(), nullable=False)
-
-Base.metadata.create_all(engine)
